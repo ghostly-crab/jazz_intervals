@@ -20,12 +20,13 @@ fn main() {
         let resulting_note = starting_note.from_interval(direction, interval);
 
         println!(
-            "What {} is {} {} {} from {}? (or Q to quit)",
+            "What {} is {} {} {} from {}? {}",
             "note".yellow(),
             if interval == Interval::Octave { "an" } else { "a" },
             interval.to_string().to_lowercase(),
             direction.to_string().to_lowercase(),
             starting_note.to_string().bold().purple(),
+            "(or Q to quit)".truecolor(0x77, 0x88, 0x99)
         );
         
         let mut guess = String::new();
@@ -63,7 +64,15 @@ fn main() {
                                 MoveUp(1),
                                 Clear(terminal::ClearType::CurrentLine),
                             ).unwrap();
-                            println!("Invalid input, please enter a valid note like D, Db, or D#! (or Q to quit)");
+                            println!(
+                                "{}: Please enter a valid {} like {}, {}, or {}! {}",
+                                "Invalid input".bold().red(),
+                                "note".yellow(),
+                                "D".bold().purple(),
+                                "Db".bold().purple(),
+                                "D#".bold().purple(),
+                                "(or Q to quit)".truecolor(0x77, 0x88, 0x99)
+                            );
                             continue;
                         }
                     }
@@ -72,9 +81,19 @@ fn main() {
         };
 
         if guess == resulting_note {
-            println!("Correct!");
+            println!(
+                "{}!",
+                "Correct".on_green()
+            );
         } else {
-            println!("Incorrect, the correct answer was {resulting_note}! (don't sweat it, wrong answers burn better in the brain)");
+            println!(
+                "{}, the correct answer was {}! {}{}{}",
+                "Incorrect".on_red(),
+                resulting_note.to_string().bold().purple(),
+                "(don't sweat it, wrong answers ".truecolor(0x77, 0x88, 0x99),
+                "burn better".italic().cyan(),
+                " in the brain)".truecolor(0x77, 0x88, 0x99)
+            );
         }
     }
 }
