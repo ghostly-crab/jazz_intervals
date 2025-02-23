@@ -1,5 +1,7 @@
+// external
 use std::fmt;
 
+// internal
 use super::{Direction, Interval};
 
 #[derive(Clone, Copy, PartialEq, Eq)]

@@ -2,6 +2,7 @@
 use crossterm::{cursor::MoveUp, execute, terminal::{self, Clear}};
 use rand::Rng;
 use std::{io, process};
+use colored::Colorize;
 
 // internal
 use jazz_intervals::enums::{Direction, Interval, Note};
@@ -19,10 +20,12 @@ fn main() {
         let resulting_note = starting_note.from_interval(direction, interval);
 
         println!(
-            "What \u{001b}[4mnote\u{001b}[0m is {} {} {} from {starting_note}? (or Q to quit)",
+            "What {} is {} {} {} from {}? (or Q to quit)",
+            "note".yellow(),
             if interval == Interval::Octave { "an" } else { "a" },
             interval.to_string().to_lowercase(),
-            direction.to_string().to_lowercase()
+            direction.to_string().to_lowercase(),
+            starting_note.to_string().bold().purple(),
         );
         
         let mut guess = String::new();
@@ -30,10 +33,16 @@ fn main() {
         let mut first_iteration = true;
         let guess: Note = loop {
             guess.clear();
+
             io::stdin()
                .read_line(&mut guess)
                 .expect("Failed to read line");
-        
+
+            let mut guess_chars = guess.chars();
+            if let Some(first) = guess_chars.next() {
+                guess = first.to_uppercase().chain(guess_chars).collect();
+            }
+
             match guess.trim() {
                 "Q" => process::exit(0),
                 guess => {

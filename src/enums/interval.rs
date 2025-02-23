@@ -1,3 +1,4 @@
+// external
 use std::fmt;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
