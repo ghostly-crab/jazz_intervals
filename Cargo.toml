@@ -1,0 +1,11 @@
+[package]
+name = "jazz_intervals"
+description = "A simple CLI application for practicing ascending/descending musical intervals"
+version = "0.1.0"
+edition = "2021"
+authors = ["Ghostly Crab <198675328+ghostly-crab@users.noreply.github.com>"]
+publish = false
+
+[dependencies]
+rand = "0.8.5"
+crossterm = "0.28.1"
