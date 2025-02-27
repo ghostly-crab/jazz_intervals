@@ -19,12 +19,14 @@ fn main() {
         
         let resulting_note = starting_note.from_interval(direction, interval);
 
+        let direction = direction.to_string().to_lowercase();
+
         println!(
             "What {} is {} {} {} from {}? {}",
             "note".yellow(),
             if interval == Interval::Octave { "an" } else { "a" },
             interval.to_string().to_lowercase(),
-            direction.to_string().to_lowercase(),
+            if direction == "up" { direction.green() } else { direction.red() },
             starting_note.to_string().bold().purple(),
             "(or Q to quit)".truecolor(0x77, 0x88, 0x99)
         );
