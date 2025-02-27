@@ -56,19 +56,21 @@ impl TryFrom<&str> for Note {
     type Error = &'static str;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        match value {
-            "C" => Ok(Self::C),
-            "C#" | "Db" => Ok(Self::CSharpDFlat),
-            "D" => Ok(Self::D),
-            "D#" | "Eb" => Ok(Self::DSharpEFlat),
-            "E" => Ok(Self::E),
-            "F" => Ok(Self::F),
-            "F#" | "Gb" => Ok(Self::FSharpGFlat),
-            "G" => Ok(Self::G),
-            "G#" | "Ab" => Ok(Self::GSharpAFlat),
-            "A" => Ok(Self::A),
-            "A#" | "Bb" => Ok(Self::ASharpBFlat),
-            "B" => Ok(Self::B),
+        let value = value.to_lowercase();
+
+        match value.as_str() {
+            "c" => Ok(Self::C),
+            "c#" | "cs" | "db" => Ok(Self::CSharpDFlat),
+            "d" => Ok(Self::D),
+            "d#" | "ds" | "eb" => Ok(Self::DSharpEFlat),
+            "e" => Ok(Self::E),
+            "f" => Ok(Self::F),
+            "f#" | "fs" | "gb" => Ok(Self::FSharpGFlat),
+            "g" => Ok(Self::G),
+            "g#" | "gs" | "ab" => Ok(Self::GSharpAFlat),
+            "a" => Ok(Self::A),
+            "a#" | "as" | "bb" => Ok(Self::ASharpBFlat),
+            "b" => Ok(Self::B),
             _ => Err("'value' is not a valid note!"),
         }
     }

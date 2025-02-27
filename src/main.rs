@@ -39,13 +39,10 @@ fn main() {
                .read_line(&mut guess)
                 .expect("Failed to read line");
 
-            let mut guess_chars = guess.chars();
-            if let Some(first) = guess_chars.next() {
-                guess = first.to_uppercase().chain(guess_chars).collect();
-            }
+            guess = guess.to_lowercase();
 
             match guess.trim() {
-                "Q" => process::exit(0),
+                "q" => process::exit(0),
                 guess => {
                     match Note::try_from(guess) {
                         Ok(note) => break note,
